@@ -1,0 +1,124 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: #1c2a4f;
+    color: #c9e1f9;
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    min-height: 500px;
+    padding: 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #111c30;
+    border: 1px solid #263650;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #2563eb;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.logo-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.content {
+    max-width: 650px;
+    margin: 50px 0;
+}
+
+.status {
+    display: inline-block;
+    color: #60a5fa;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 52px;
+    margin-bottom: 20px;
+}
+
+.description {
+    color: #a8b5c9;
+    font-size: 17px;
+    line-height: 1.8;
+    margin-bottom: 28px;
+}
+
+.version {
+    display: inline-block;
+    padding: 9px 16px;
+    border: 1px solid #334966;
+    border-radius: 20px;
+    color: #bfdbfe;
+    font-size: 13px;
+}
+
+.development {
+    margin-top: 22px;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+footer {
+    padding-top: 20px;
+    border-top: 1px solid #263650;
+    color: #64748b;
+    font-size: 12px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        min-height: 100vh;
+        border-radius: 0;
+        padding: 28px;
+    }
+
+    h1 {
+        font-size: 38px;
+    }
+
+    .description {
+        font-size: 15px;
+    }
+}
