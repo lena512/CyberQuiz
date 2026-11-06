@@ -19,8 +19,8 @@
 Для запуска опубликованного образа необходимо выполнить следующие команды:
 
 ```bash
-docker pull USERNAME/mispisit-lab1:0.0.1
-docker run --rm -p 8080:8080 USERNAME/mispisit-lab1:0.0.1
+docker pull lena512/mispisit-lab1:0.0.1
+docker run --rm -p 8080:8080 lena512/mispisit-lab1:0.0.1
 ```
 
 После запуска приложение будет доступно в браузере по адресу:
