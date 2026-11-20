@@ -1,124 +1,1187 @@
-* {
-    margin: 0;
-    padding: 0;
+
+/* ==========================================
+   CyberQuiz — единая дизайн-система
+   Тёмно-синяя цветовая гамма
+   ========================================== */
+
+:root {
+    --bg: #0b1426;
+    --bg-light: #101e35;
+    --surface: #142643;
+    --surface-hover: #1a3153;
+    --surface-soft: #182d4b;
+
+    --primary: #3185ed;
+    --primary-hover: #4b9bff;
+    --accent: #65b8ff;
+
+    --text: #f1f6ff;
+    --text-secondary: #b5c6dc;
+    --text-muted: #8196b2;
+
+    --border: rgba(164, 195, 232, 0.15);
+    --success: #43d69a;
+    --danger: #ff8c8c;
+
+    --radius: 14px;
+    --radius-small: 9px;
+    --content-width: 1120px;
+}
+
+/* ==========================================
+   Сброс старых стилей
+   ========================================== */
+
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
-body {
-    min-height: 100vh;
-    background: #1c2a4f;
-    color: #c9e1f9;
-    font-family: Arial, Helvetica, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+html {
+    min-width: 320px;
+    scroll-behavior: smooth;
 }
 
-.container {
+body.cq-body {
+    display: flex !important;
+    flex-direction: column !important;
+
     width: 100%;
-    max-width: 900px;
-    min-height: 500px;
-    padding: 45px;
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0 !important;
+
+    background: var(--bg) !important;
+    color: var(--text) !important;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+
+    overflow-x: hidden;
+}
+
+.cq-body * {
+    box-sizing: border-box;
+    float: none !important;
+}
+
+.cq-body h1,
+.cq-body h2,
+.cq-body h3,
+.cq-body p {
+    margin-top: 0;
+}
+
+.cq-body a {
+    text-decoration: none;
+}
+
+/* ==========================================
+   Контейнер
+   ========================================== */
+
+.cq-container {
+    width: min(
+        var(--content-width),
+        calc(100% - 40px)
+    );
+
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* ==========================================
+   Верхняя панель
+   ========================================== */
+
+.cq-header {
+    position: relative !important;
+    inset: auto !important;
+    z-index: 10;
+
+    display: block !important;
+
+    width: 100% !important;
+    min-height: 78px;
+
+    margin: 0 !important;
+    padding: 0;
+
+    background: #101d34 !important;
+    border-bottom: 1px solid var(--border);
+}
+
+.cq-header-inner {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    min-height: 78px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.cq-brand {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px;
+
+    color: var(--text) !important;
+    text-decoration: none !important;
+}
+
+.cq-brand-icon {
+    display: grid;
+    place-items: center;
+
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+
+    border-radius: 12px;
+    background: var(--primary);
+
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.cq-brand-text {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    background: #111c30;
-    border: 1px solid #263650;
-    border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+    line-height: 1.3;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.cq-brand-text strong {
+    color: #ffffff;
+    font-size: 19px;
 }
 
-.logo-icon {
-    width: 42px;
-    height: 42px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #2563eb;
-    border-radius: 10px;
-    font-weight: bold;
-    font-size: 15px;
-}
-
-.logo-name {
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.content {
-    max-width: 650px;
-    margin: 50px 0;
-}
-
-.status {
-    display: inline-block;
-    color: #60a5fa;
+.cq-brand-text small {
+    margin-top: 3px;
+    color: var(--text-muted);
     font-size: 11px;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
 }
 
-h1 {
-    font-size: 52px;
-    margin-bottom: 20px;
+/* Навигация */
+
+.cq-nav {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 30px;
+
+    margin: 0 0 0 auto !important;
+    padding: 0;
 }
 
-.description {
-    color: #a8b5c9;
-    font-size: 17px;
-    line-height: 1.8;
-    margin-bottom: 28px;
+.cq-nav a {
+    padding: 9px 0;
+
+    color: var(--text-secondary) !important;
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none !important;
+    transition: color 0.2s ease;
 }
 
-.version {
+.cq-nav a:hover {
+    color: var(--accent) !important;
+}
+
+/* ==========================================
+   Основная область
+   ========================================== */
+
+.cq-main {
+    position: relative !important;
+
+    display: block !important;
+    flex: 1 0 auto;
+
+    width: min(
+        var(--content-width),
+        calc(100% - 40px)
+    ) !important;
+
+    max-width: var(--content-width);
+    min-height: 0;
+
+    margin: 0 auto !important;
+    padding: 48px 0 70px !important;
+}
+
+/* ==========================================
+   Общие элементы
+   ========================================== */
+
+.cq-eyebrow {
     display: inline-block;
-    padding: 9px 16px;
-    border: 1px solid #334966;
-    border-radius: 20px;
-    color: #bfdbfe;
-    font-size: 13px;
+
+    margin-bottom: 8px;
+
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
 }
 
-.development {
-    margin-top: 22px;
-    color: #94a3b8;
+.cq-button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px;
+
+    min-height: 48px;
+    padding: 12px 22px;
+
+    border: 1px solid transparent;
+    border-radius: var(--radius-small);
+
+    background: var(--primary);
+    color: #ffffff !important;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none !important;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.cq-button:hover {
+    background: var(--primary-hover);
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(49, 133, 237, 0.2);
+}
+
+.cq-button-secondary {
+    background: var(--surface-hover);
+    border-color: var(--border);
+    color: var(--text) !important;
+}
+
+.cq-button-secondary:hover {
+    background: #25446e;
+    color: #ffffff !important;
+}
+
+/* ==========================================
+   Главная страница — приветственный блок
+   ========================================== */
+
+.cq-hero {
+    position: relative;
+
+    display: grid !important;
+    grid-template-columns:
+        minmax(0, 1.5fr)
+        minmax(220px, 0.7fr);
+    align-items: center;
+    gap: 35px;
+
+    width: 100%;
+    min-height: 350px;
+
+    margin: 0 !important;
+    padding: 48px;
+
+    border: 1px solid rgba(126, 180, 245, 0.18);
+    border-radius: 20px;
+
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(49, 133, 237, 0.25),
+            transparent 34%
+        ),
+        linear-gradient(
+            120deg,
+            #102440 0%,
+            #123c67 55%,
+            #14528a 100%
+        );
+
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.cq-hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.cq-hero .cq-eyebrow {
+    color: #83cbff;
+}
+
+.cq-hero h1 {
+    max-width: 650px;
+
+    margin: 8px 0 18px;
+
+    color: #ffffff;
+    font-size: clamp(32px, 4vw, 47px);
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.cq-hero-description {
+    max-width: 590px;
+
+    margin-bottom: 27px;
+
+    color: #d0e3f7;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.cq-hero .cq-button {
+    background: #ffffff;
+    color: #14569b !important;
+}
+
+.cq-hero .cq-button:hover {
+    background: #e5f2ff;
+}
+
+/* Декоративный элемент */
+
+.cq-hero-graphic {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    min-height: 230px;
+    padding: 20px;
+
+    border: 1px solid rgba(255, 255, 255, 0.17);
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.06);
+
+    color: #ffffff;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.cq-shield {
+    display: grid;
+    place-items: center;
+
+    width: 86px;
+    height: 96px;
+
+    margin-bottom: 12px;
+
+    background: #ffffff;
+    color: #176cc0;
+
+    clip-path: polygon(
+        50% 0,
+        95% 18%,
+        87% 68%,
+        50% 100%,
+        13% 68%,
+        5% 18%
+    );
+
+    font-size: 40px;
+    font-weight: 800;
+}
+
+.cq-hero-graphic > span {
+    color: #a4d8ff;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.cq-hero-graphic > strong {
+    margin-top: 8px;
+
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+/* ==========================================
+   Блок возможностей курса
+   ========================================== */
+
+.cq-section {
+    display: block !important;
+
+    width: 100%;
+    margin: 55px 0 0 !important;
+    padding: 0;
+}
+
+.cq-section-heading {
+    margin-bottom: 25px;
+}
+
+.cq-section-heading h2 {
+    margin: 5px 0 8px;
+
+    color: var(--text);
+    font-size: 28px;
+}
+
+.cq-section-heading p {
+    margin: 0;
+
+    color: var(--text-secondary);
     font-size: 14px;
 }
 
-.status-dot {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background: #22c55e;
-    border-radius: 50%;
-    margin-right: 8px;
+.cq-feature-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+
+    width: 100%;
 }
 
-footer {
-    padding-top: 20px;
-    border-top: 1px solid #263650;
-    color: #64748b;
-    font-size: 12px;
+.cq-feature-card {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    min-height: 245px;
+
+    padding: 25px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
 }
+
+.cq-feature-card:hover {
+    transform: translateY(-4px);
+
+    border-color: rgba(101, 184, 255, 0.45);
+    background: var(--surface-hover);
+}
+
+.cq-feature-icon {
+    display: grid;
+    place-items: center;
+
+    width: 43px;
+    height: 43px;
+
+    border-radius: 10px;
+    background: rgba(49, 133, 237, 0.18);
+
+    color: #85c5ff;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.cq-feature-card h3 {
+    margin: 17px 0 8px;
+
+    color: var(--text);
+    font-size: 18px;
+}
+
+.cq-feature-card p {
+    flex: 1;
+
+    margin: 0 0 16px;
+
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.cq-feature-card a {
+    color: var(--accent) !important;
+    font-size: 13px;
+    font-weight: 700;
+
+    text-decoration: none !important;
+}
+
+.cq-feature-card a:hover {
+    color: #ffffff !important;
+}
+
+/* ==========================================
+   Заголовки внутренних страниц
+   ========================================== */
+
+.cq-page-heading {
+    display: block;
+
+    width: 100%;
+    margin: 0 0 32px;
+}
+
+.cq-page-heading h1 {
+    margin: 5px 0 10px;
+
+    color: var(--text);
+    font-size: clamp(29px, 4vw, 39px);
+    line-height: 1.2;
+}
+
+.cq-page-heading > p {
+    max-width: 760px;
+    margin-bottom: 18px;
+
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* ==========================================
+   Прогресс курса
+   ========================================== */
+
+.cq-progress-info {
+    display: flex;
+    justify-content: space-between;
+
+    max-width: 500px;
+    margin-top: 25px;
+
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.cq-progress-info strong {
+    color: var(--accent);
+}
+
+.cq-progress-track {
+    width: 100%;
+    max-width: 500px;
+    height: 7px;
+
+    margin-top: 9px;
+
+    border-radius: 20px;
+    background: #243956;
+
+    overflow: hidden;
+}
+
+.cq-progress-fill {
+    width: 100%;
+    height: 100%;
+
+    border-radius: inherit;
+    background: linear-gradient(
+        90deg,
+        #2874d2,
+        #65b8ff
+    );
+}
+
+/* Информация о тесте */
+
+.cq-test-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin-top: 22px;
+}
+
+.cq-test-info span {
+    padding: 7px 13px;
+
+    border: 1px solid rgba(101, 184, 255, 0.2);
+    border-radius: 20px;
+
+    background: rgba(49, 133, 237, 0.12);
+    color: #9acfff;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* ==========================================
+   Теоретические материалы
+   ========================================== */
+
+.cq-topics {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 20px;
+
+    width: 100%;
+}
+
+.cq-topic-card {
+    display: block;
+
+    min-width: 0;
+    padding: 28px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
+}
+
+.cq-topic-card:hover {
+    border-color: rgba(101, 184, 255, 0.3);
+}
+
+.cq-topic-number,
+.cq-question-number {
+    display: block;
+
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+}
+
+.cq-topic-card h2 {
+    margin: 10px 0;
+
+    color: #ffffff;
+    font-size: 22px;
+    line-height: 1.35;
+}
+
+.cq-topic-intro {
+    margin-bottom: 20px;
+
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.cq-topic-card h3 {
+    margin: 20px 0 10px;
+
+    color: #e5f1ff;
+    font-size: 15px;
+}
+
+.cq-topic-list {
+    margin: 0;
+    padding-left: 22px;
+}
+
+.cq-topic-list li {
+    margin-bottom: 10px;
+    padding-left: 5px;
+
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.cq-topic-list li::marker {
+    color: var(--accent);
+}
+
+/* Практический пример */
+
+.cq-example {
+    margin-top: 22px;
+    padding: 17px 20px;
+
+    border-left: 3px solid var(--primary);
+    border-radius: 0 var(--radius-small) var(--radius-small) 0;
+
+    background: #192f4e;
+}
+
+.cq-example strong {
+    color: #83c4ff;
+    font-size: 13px;
+}
+
+.cq-example p {
+    margin: 6px 0 0;
+
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+/* Переход к тесту */
+
+.cq-bottom-panel {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 20px;
+
+    margin-top: 30px;
+    padding: 26px 30px;
+
+    border: 1px solid rgba(101, 184, 255, 0.17);
+    border-radius: var(--radius);
+
+    background: #142b49;
+}
+
+.cq-bottom-panel h2 {
+    margin: 0 0 5px;
+
+    color: #ffffff;
+    font-size: 21px;
+}
+
+.cq-bottom-panel p {
+    margin: 0;
+
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+/* ==========================================
+   Тестирование
+   ========================================== */
+
+.cq-test-form {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 20px;
+
+    width: 100%;
+}
+
+.cq-question-card {
+    display: block;
+
+    min-width: 0;
+    margin: 0;
+    padding: 25px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
+}
+
+.cq-question-card legend {
+    display: block;
+
+    width: 100%;
+    padding: 0;
+}
+
+.cq-question-number {
+    margin-bottom: 8px;
+}
+
+.cq-question-text {
+    display: block;
+
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.cq-options {
+    display: grid;
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.cq-option {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 12px;
+
+    padding: 14px 16px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+
+    background: #192d49;
+    color: var(--text-secondary);
+
+    font-size: 14px;
+    line-height: 1.5;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.cq-option:hover {
+    border-color: var(--primary);
+    background: #203b5e;
+}
+
+.cq-option input {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+
+    margin: 2px 0 0;
+
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+.cq-option:has(input:checked) {
+    border-color: var(--primary);
+    background: rgba(49, 133, 237, 0.15);
+    color: #ffffff;
+}
+
+/* Отправка теста */
+
+.cq-test-submit {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 20px;
+
+    padding: 25px;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    background: #142b49;
+}
+
+.cq-test-submit p {
+    margin: 0;
+
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* ==========================================
+   Страница результата
+   ========================================== */
+
+.cq-result-card,
+.cq-error-card {
+    display: block;
+
+    width: 100%;
+    max-width: 760px;
+
+    margin: 15px auto;
+    padding: 40px;
+
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    background: var(--surface);
+
+    text-align: center;
+}
+
+.cq-result-card h1,
+.cq-error-card h1 {
+    margin: 12px 0;
+
+    color: #ffffff;
+    font-size: 29px;
+    line-height: 1.3;
+}
+
+.cq-result-card > p,
+.cq-error-card > p {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* Иконка результата */
+
+.cq-result-icon,
+.cq-error-icon {
+    display: grid;
+    place-items: center;
+
+    width: 68px;
+    height: 68px;
+
+    margin: 18px auto;
+
+    border-radius: 50%;
+
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.cq-result-success {
+    background: rgba(67, 214, 154, 0.15);
+    color: var(--success);
+}
+
+.cq-result-fail,
+.cq-error-icon {
+    background: rgba(255, 140, 140, 0.12);
+    color: var(--danger);
+}
+
+/* Процент результата */
+
+.cq-score {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    margin: 30px auto;
+}
+
+.cq-score strong {
+    color: var(--accent);
+    font-size: 56px;
+    line-height: 1.2;
+}
+
+.cq-score span {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* Подробности результата */
+
+.cq-result-details {
+    margin: 25px 0;
+    padding: 10px 20px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    background: #192d49;
+
+    text-align: left;
+}
+
+.cq-result-details > div {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 15px;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.cq-result-details > div:last-child {
+    border-bottom: none;
+}
+
+.cq-result-details span {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.cq-result-details strong {
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.cq-status-success {
+    color: var(--success) !important;
+}
+
+.cq-status-fail {
+    color: var(--danger) !important;
+}
+
+/* Кнопки результата */
+
+.cq-result-actions,
+.cq-error-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-top: 25px;
+}
+
+/* ==========================================
+   Страница отказа
+   ========================================== */
+
+.cq-error-card {
+    margin-top: 40px;
+}
+
+.cq-error-actions {
+    align-items: center;
+}
+
+/* ==========================================
+   Подвал
+   ========================================== */
+
+.cq-footer {
+    position: relative !important;
+
+    display: block !important;
+
+    width: 100% !important;
+    margin: auto 0 0 !important;
+    padding: 22px 0;
+
+    border-top: 1px solid var(--border);
+    background: #101d34 !important;
+
+    text-align: center;
+}
+
+.cq-footer p {
+    margin: 0;
+
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.cq-footer span {
+    display: inline-block;
+
+    margin-top: 3px;
+
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+/* ==========================================
+   Адаптация для планшетов
+   ========================================== */
+
+@media (max-width: 850px) {
+    .cq-hero {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 35px;
+    }
+
+    .cq-hero-graphic {
+        min-height: 190px;
+    }
+
+    .cq-feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* ==========================================
+   Адаптация для смартфонов
+   ========================================== */
 
 @media (max-width: 600px) {
-    .container {
-        min-height: 100vh;
-        border-radius: 0;
-        padding: 28px;
+    .cq-container {
+        width: calc(100% - 28px);
     }
 
-    h1 {
-        font-size: 38px;
+    .cq-header-inner {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px;
+
+        padding-top: 14px;
+        padding-bottom: 14px;
     }
 
-    .description {
-        font-size: 15px;
+    .cq-nav {
+        display: flex !important;
+
+        width: 100%;
+        justify-content: space-between !important;
+        gap: 10px;
+
+        margin: 0 !important;
+    }
+
+    .cq-nav a {
+        font-size: 12px;
+    }
+
+    .cq-main {
+        width: calc(100% - 28px) !important;
+        padding-top: 28px !important;
+        padding-bottom: 40px !important;
+    }
+
+    .cq-hero {
+        gap: 25px;
+        padding: 27px 21px;
+    }
+
+    .cq-hero h1 {
+        font-size: 31px;
+    }
+
+    .cq-hero-description {
+        font-size: 14px;
+    }
+
+    .cq-feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cq-feature-card {
+        min-height: 0;
+    }
+
+    .cq-topic-card,
+    .cq-question-card {
+        padding: 20px;
+    }
+
+    .cq-bottom-panel,
+    .cq-test-submit {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .cq-result-card,
+    .cq-error-card {
+        padding: 26px 18px;
+    }
+
+    .cq-result-details > div {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 4px;
+    }
+
+    .cq-result-actions,
+    .cq-error-actions {
+        flex-direction: column !important;
+    }
+
+    .cq-result-actions .cq-button,
+    .cq-error-actions .cq-button {
+        width: 100%;
     }
 }

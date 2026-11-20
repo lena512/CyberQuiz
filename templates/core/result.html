@@ -1,0 +1,62 @@
+{% extends "core/base.html" %}
+
+{% block title %}Результат | CyberQuiz{% endblock %}
+
+{% block content %}
+
+<section class="cq-result-card">
+    <span class="cq-eyebrow">ИТОГ ОБУЧЕНИЯ</span>
+
+    {% if result.passed %}
+        <div class="cq-result-icon cq-result-success">✓</div>
+        <h1>Тестирование завершено!</h1>
+        <p>Поздравляем! Ты успешно прошёл итоговую проверку знаний.</p>
+    {% else %}
+        <div class="cq-result-icon cq-result-fail">!</div>
+        <h1>Тестирование завершено</h1>
+        <p>
+            Пока не удалось набрать необходимое количество баллов.
+            Рекомендуем повторить теоретический материал.
+        </p>
+    {% endif %}
+
+    <div class="cq-score">
+        <strong>{{ result.percentage }}%</strong>
+        <span>Результат тестирования</span>
+    </div>
+
+    <div class="cq-result-details">
+        <div>
+            <span>Правильные ответы</span>
+            <strong>
+                {{ result.correct_count }} из {{ result.total_questions }}
+            </strong>
+        </div>
+
+        <div>
+            <span>Итоговая оценка</span>
+            <strong>{{ result.grade }}</strong>
+        </div>
+
+        <div>
+            <span>Статус курса</span>
+            {% if result.passed %}
+                <strong class="cq-status-success">Пройден</strong>
+            {% else %}
+                <strong class="cq-status-fail">Не пройден</strong>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="cq-result-actions">
+        <a href="{% url 'course' %}" class="cq-button cq-button-secondary">
+            Вернуться к материалам
+        </a>
+
+        <a href="{% url 'test' %}" class="cq-button">
+            Пройти тест повторно →
+        </a>
+    </div>
+</section>
+
+{% endblock %}

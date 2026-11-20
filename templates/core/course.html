@@ -1,0 +1,59 @@
+{% extends "core/base.html" %}
+
+{% block title %}Теория | CyberQuiz{% endblock %}
+
+{% block content %}
+
+<section class="cq-page-heading">
+    <span class="cq-eyebrow">ОБУЧАЮЩИЙ МАТЕРИАЛ</span>
+    <h1>{{ course.title }}</h1>
+    <p>{{ course.description }}</p>
+
+    <div class="cq-progress-info">
+        <span>Учебная программа</span>
+        <strong>{{ topics|length }} тем</strong>
+    </div>
+
+    <div class="cq-progress-track">
+        <div class="cq-progress-fill"></div>
+    </div>
+</section>
+
+<section class="cq-topics">
+    {% for topic in topics %}
+        <article class="cq-topic-card">
+            <div class="cq-topic-header">
+                <span class="cq-topic-number">ТЕМА {{ topic.id }}</span>
+            </div>
+
+            <h2>{{ topic.title }}</h2>
+            <p class="cq-topic-intro">{{ topic.intro }}</p>
+
+            <h3>Основные положения</h3>
+
+            <ul class="cq-topic-list">
+                {% for point in topic.points %}
+                    <li>{{ point }}</li>
+                {% endfor %}
+            </ul>
+
+            <div class="cq-example">
+                <strong>Пример из практики</strong>
+                <p>{{ topic.example }}</p>
+            </div>
+        </article>
+    {% endfor %}
+</section>
+
+<section class="cq-bottom-panel">
+    <div>
+        <h2>Готов проверить свои знания?</h2>
+        <p>Пройди итоговое тестирование по изученному материалу.</p>
+    </div>
+
+    <a href="{% url 'test' %}" class="cq-button">
+        Перейти к тесту →
+    </a>
+</section>
+
+{% endblock %}

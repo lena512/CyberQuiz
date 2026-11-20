@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CyberQuiz{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="cq-body">
+
+<header class="cq-header">
+    <div class="cq-container cq-header-inner">
+        <a href="{% url 'index' %}" class="cq-brand">
+            <span class="cq-brand-icon">CQ</span>
+            <span class="cq-brand-text">
+                <strong>CyberQuiz</strong>
+                <small>Корпоративное обучение</small>
+            </span>
+        </a>
+
+        <nav class="cq-nav">
+            <a href="{% url 'index' %}">Главная</a>
+            <a href="{% url 'course' %}">Курс</a>
+            <a href="{% url 'test' %}">Тестирование</a>
+        </nav>
+    </div>
+</header>
+
+<main class="cq-container cq-main">
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="cq-footer">
+    <div class="cq-container">
+        <p>CyberQuiz — платформа корпоративного обучения</p>
+        <span>Основы информационной безопасности</span>
+    </div>
+</footer>
+
+</body>
+</html>
