@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+
+{% block title %}Ошибка | CyberQuiz{% endblock %}
+
+{% block content %}
+
+<section class="cq-error-card">
+    <div class="cq-error-icon">!</div>
+
+    <span class="cq-eyebrow">ОПЕРАЦИЯ НЕ ВЫПОЛНЕНА</span>
+
+    <h1>Не удалось выполнить действие</h1>
+
+    <p>{{ message }}</p>
+
+    <div class="cq-error-actions">
+        <a href="{% url 'test' %}" class="cq-button">
+            Вернуться к тестированию →
+        </a>
+
+        <a href="{% url 'course' %}" class="cq-text-link">
+            Вернуться к курсу
+        </a>
+    </div>
+</section>
+
+{% endblock %}

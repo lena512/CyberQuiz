@@ -1,0 +1,61 @@
+{% extends "core/base.html" %}
+
+{% block title %}Тестирование | CyberQuiz{% endblock %}
+
+{% block content %}
+
+<section class="cq-page-heading">
+    <span class="cq-eyebrow">ИТОГОВАЯ ПРОВЕРКА</span>
+    <h1>Тестирование</h1>
+    <p>
+        Ответь на пять вопросов по материалам курса.
+        В каждом вопросе только один правильный ответ.
+    </p>
+
+    <div class="cq-test-info">
+        <span>5 вопросов</span>
+        <span>4 варианта ответа</span>
+        <span>1 попытка за отправку</span>
+    </div>
+</section>
+
+<form method="post" class="cq-test-form">
+    {% csrf_token %}
+
+    {% for question in questions %}
+        <fieldset class="cq-question-card">
+            <legend>
+                <span class="cq-question-number">
+                    ВОПРОС {{ forloop.counter }}
+                </span>
+                <span class="cq-question-text">
+                    {{ question.text }}
+                </span>
+            </legend>
+
+            <div class="cq-options">
+                {% for option in question.options %}
+                    <label class="cq-option">
+                        <input
+                            type="radio"
+                            name="question_{{ question.id }}"
+                            value="{{ option.value }}"
+                            required
+                        >
+                        <span>{{ option.text }}</span>
+                    </label>
+                {% endfor %}
+            </div>
+        </fieldset>
+    {% endfor %}
+
+    <div class="cq-test-submit">
+        <p>Проверь ответы перед отправкой теста.</p>
+
+        <button type="submit" class="cq-button">
+            Завершить тестирование →
+        </button>
+    </div>
+</form>
+
+{% endblock %}

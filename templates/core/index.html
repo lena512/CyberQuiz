@@ -1,48 +1,70 @@
-<!DOCTYPE html>
-{% load static %}
+{% extends "core/base.html" %}
 
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberQuiz — Корпоративное обучение</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
+{% block title %}Главная | CyberQuiz{% endblock %}
 
-    <main class="container">
-        <div class="logo">
-            <span class="logo-icon">CQ</span>
-            <span class="logo-name">CyberQuiz</span>
-        </div>
+{% block content %}
 
-        <div class="content">
-            <div class="status">CORPORATE LEARNING PLATFORM</div>
+<section class="cq-hero">
+    <div class="cq-hero-content">
+        <span class="cq-eyebrow">ОБУЧАЮЩАЯ ПЛАТФОРМА</span>
 
-            <h1>CyberQuiz</h1>
+        <h1>{{ course.title }}</h1>
 
-            <p class="description">
-                Платформа корпоративного обучения,
-                предназначенная для развития навыков
-                информационной безопасности сотрудников,
-                проверки знаний и практической подготовки
-                к противодействию киберугрозам.
+        <p class="cq-hero-description">
+            {{ course.description }}
+        </p>
+
+        <a href="{% url 'course' %}" class="cq-button">
+            Перейти к обучению
+            <span>→</span>
+        </a>
+    </div>
+
+    <div class="cq-hero-graphic">
+        <div class="cq-shield">✓</div>
+        <span>SECURITY</span>
+        <strong>YOUR DATA<br>YOUR RULES</strong>
+    </div>
+</section>
+
+<section class="cq-section">
+    <div class="cq-section-heading">
+        <span class="cq-eyebrow">ВОЗМОЖНОСТИ КУРСА</span>
+        <h2>Что тебя ждёт?</h2>
+        <p>Изучи теорию, проверь знания и получи результат обучения.</p>
+    </div>
+
+    <div class="cq-feature-grid">
+        <article class="cq-feature-card">
+            <div class="cq-feature-icon">01</div>
+            <h3>Теоретический блок</h3>
+            <p>
+                Пять учебных тем с основными понятиями,
+                рекомендациями и примерами.
             </p>
+            <a href="{% url 'course' %}">Изучить темы →</a>
+        </article>
 
-            <div class="version">
-                Версия 0.0.1
-            </div>
-
-            <p class="development">
-                <span class="status-dot"></span>
-                Разработка продолжается
+        <article class="cq-feature-card">
+            <div class="cq-feature-icon">02</div>
+            <h3>Проверка знаний</h3>
+            <p>
+                Ответь на пять вопросов и проверь,
+                насколько хорошо усвоен материал.
             </p>
-        </div>
+            <a href="{% url 'test' %}">Начать тест →</a>
+        </article>
 
-        <footer>
-            CyberQuiz &copy; 2026
-        </footer>
-    </main>
+        <article class="cq-feature-card">
+            <div class="cq-feature-icon">03</div>
+            <h3>Результат обучения</h3>
+            <p>
+                Получи количество правильных ответов,
+                процент выполнения и итоговую оценку.
+            </p>
+            <a href="{% url 'course' %}">Перейти к курсу →</a>
+        </article>
+    </div>
+</section>
 
-</body>
-</html>
+{% endblock %}
