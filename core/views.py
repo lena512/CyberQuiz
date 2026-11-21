@@ -1,22 +1,14 @@
-import json
-
-from pathlib import Path
-
-from django.conf import settings
-from django.shortcuts import render, redirect
-from django.utils import timezone
+from django.db import DatabaseError, transaction
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .data import (
     COURSE,
     COURSE_TOPICS,
     QUESTIONS,
-    get_public_questions,
     calculate_result,
+    get_public_questions,
 )
-
-
-# Путь к файлу с результатами тестирования
-RESULTS_FILE = Path(settings.BASE_DIR) / "data" / "results.json"
+from .models import Event, TestResult, UserAnswer
 
 
 def index(request):
@@ -26,6 +18,7 @@ def index(request):
         "core/index.html",
         {"course": COURSE}
     )
+
 
 def course(request):
     """Страница с теоретическими материалами курса."""
@@ -38,12 +31,9 @@ def course(request):
 
 
 def test_view(request):
-    """Страница тестирования и обработка ответов пользователя."""
+    """Страница тестирования и сохранение попытки в базе данных."""
 
     if request.method == "GET":
-        # При начале новой попытки удаляем предыдущий результат из сессии
-        request.session.pop("course_result", None)
-
         context = {
             "course": COURSE,
             "questions": get_public_questions(),
@@ -81,30 +71,40 @@ def test_view(request):
         # Проверяем ответы и рассчитываем результат
         result_data = calculate_result(answers)
 
-        # Сохраняем результат в JSON-файл
+        # Сохраняем попытку и ответы пользователя в базе данных.
+        # Транзакция не даёт записать попытку без её ответов.
         try:
-            RESULTS_FILE.parent.mkdir(parents=True, exist_ok=True)
+            with transaction.atomic():
+                attempt = TestResult.objects.create(
+                    score=result_data["correct_count"],
+                    max_score=result_data["total_questions"],
+                    percent=result_data["percentage"],
+                    grade=result_data["grade"],
+                    passed=result_data["passed"],
+                )
 
-            if RESULTS_FILE.exists():
-                with open(RESULTS_FILE, "r", encoding="utf-8") as file:
-                    results = json.load(file)
-            else:
-                results = []
+                UserAnswer.objects.bulk_create([
+                    UserAnswer(
+                        test_result=attempt,
+                        question_id=question["id"],
+                        selected_option=answers[str(question["id"])],
+                        is_correct=(
+                            answers[str(question["id"])] == question["correct"]
+                        ),
+                    )
+                    for question in QUESTIONS
+                ])
 
-            if not isinstance(results, list):
-                results = []
+                Event.objects.create(
+                    test_result=attempt,
+                    message=(
+                        f"Попытка №{attempt.pk} завершена: "
+                        f"{attempt.score} из {attempt.max_score}, "
+                        f"оценка «{attempt.grade}»"
+                    ),
+                )
 
-            attempt = {
-                "date": timezone.localtime().isoformat(),
-                **result_data,
-            }
-
-            results.append(attempt)
-
-            with open(RESULTS_FILE, "w", encoding="utf-8") as file:
-                json.dump(results, file, ensure_ascii=False, indent=4)
-
-        except (OSError, json.JSONDecodeError):
+        except DatabaseError:
             return render(
                 request,
                 "core/access_denied.html",
@@ -117,24 +117,57 @@ def test_view(request):
                 status=500,
             )
 
-        # Передаём результат на отдельную страницу
-        request.session["course_result"] = result_data
-
-        return redirect("result")
+        return redirect("result", pk=attempt.pk)
 
     return redirect("course")
 
 
-def result(request):
-    """Страница с результатом прохождения теста."""
-    result_data = request.session.get("course_result")
-
-    if not result_data:
-        return redirect("course")
+def results(request):
+    """Список всех попыток тестирования, сохранённых в базе данных."""
+    attempts = TestResult.objects.all()
 
     context = {
         "course": COURSE,
-        "result": result_data,
+        "attempts": attempts,
+    }
+
+    return render(request, "core/results.html", context)
+
+
+def events(request):
+    """Экран уведомлений о событиях системы."""
+    event_list = Event.objects.select_related("test_result").all()
+
+    context = {
+        "course": COURSE,
+        "events": event_list,
+    }
+
+    return render(request, "core/events.html", context)
+
+
+def result(request, pk):
+    """Карточка одной попытки тестирования, прочитанная из базы данных."""
+    attempt = get_object_or_404(
+        TestResult.objects.prefetch_related("answers"),
+        pk=pk,
+    )
+
+    questions = {question["id"]: question for question in QUESTIONS}
+
+    answers = [
+        {
+            "number": answer.question_id,
+            "text": questions.get(answer.question_id, {}).get("text", ""),
+            "is_correct": answer.is_correct,
+        }
+        for answer in attempt.answers.all()
+    ]
+
+    context = {
+        "course": COURSE,
+        "attempt": attempt,
+        "answers": answers,
     }
 
     return render(request, "core/result.html", context)

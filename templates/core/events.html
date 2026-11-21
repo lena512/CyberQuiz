@@ -1,0 +1,112 @@
+{% extends "core/base.html" %}
+
+{% block title %}События | CyberQuiz{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb cq-breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+            <li class="breadcrumb-item active" aria-current="page">События</li>
+        </ol>
+    </nav>
+
+    <header class="cq-page-header">
+        <div class="row align-items-end g-4">
+            <div class="col-lg-8">
+                <span class="cq-eyebrow">ЦЕНТР УВЕДОМЛЕНИЙ</span>
+                <h1>События системы</h1>
+                <p class="cq-page-lead">
+                    Здесь появляется сообщение о каждом завершённом тестировании.
+                    Уведомление связано с конкретной попыткой в базе данных.
+                </p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <div class="d-flex flex-wrap justify-content-lg-end gap-2">
+                    <span class="badge cq-badge-soft">Версия 0.0.5</span>
+                    <span class="badge cq-badge-soft">Всего событий: {{ events|length }}</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    {% if events %}
+        <div class="d-flex flex-column gap-3">
+            {% for event in events %}
+                <article class="card cq-event-card">
+                    <div class="card-body p-4">
+                        <div class="d-flex flex-column flex-sm-row gap-3">
+                            <div class="cq-event-icon">✓</div>
+
+                            <div class="flex-grow-1">
+                                <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+                                    {% if event.status == 'new' %}
+                                        <span class="badge cq-badge-success">Новое</span>
+                                    {% else %}
+                                        <span class="badge cq-badge-soft">Прочитано</span>
+                                    {% endif %}
+
+                                    <span class="text-secondary small">
+                                        {{ event.created_at|date:"d.m.Y H:i" }}
+                                    </span>
+                                </div>
+
+                                <h2 class="h5 mt-3 mb-2">{{ event.message }}</h2>
+
+                                <p class="text-secondary small mb-3">
+                                    Событие: тестирование завершено.
+                                    Запись: попытка №{{ event.test_result.id }},
+                                    {{ event.test_result.score }} из {{ event.test_result.max_score }},
+                                    оценка «{{ event.test_result.grade }}».
+                                </p>
+
+                                <a href="{% url 'result' event.test_result.id %}"
+                                   class="cq-card-link">
+                                    Открыть карточку попытки <span>→</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+
+        <p class="text-secondary small mt-4 mb-0">
+            События хранятся в таблице core_event и не удаляются при перезапуске.
+        </p>
+    {% else %}
+        <div class="card cq-empty-card">
+            <div class="card-body p-4 p-lg-5">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-7">
+                        <div class="cq-empty-icon">0</div>
+                        <h2 class="h3">Уведомлений пока нет</h2>
+                        <p class="text-secondary mb-4">
+                            Сообщение появится после того, как вы завершите
+                            тестирование. Каждое событие связано с записью
+                            попытки в базе данных.
+                        </p>
+                        <a href="{% url 'test' %}" class="btn btn-primary btn-lg px-4">
+                            Пройти тестирование →
+                        </a>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="cq-empty-hint">
+                            <div class="cq-eyebrow">ЧТО ПОЯВИТСЯ ЗДЕСЬ</div>
+                            <ul class="cq-check-list mb-0">
+                                <li>Что произошло в системе</li>
+                                <li>Номер попытки и её результат</li>
+                                <li>Дата и время события</li>
+                                <li>Статус уведомления</li>
+                                <li>Переход к карточке записи</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

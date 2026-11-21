@@ -4,24 +4,35 @@
 
 {% block content %}
 
-<section class="cq-error-card">
-    <div class="cq-error-icon">!</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-7">
+            <div class="card cq-error-card">
+                <div class="card-body p-4 p-lg-5 text-center">
+                    <div class="cq-error-icon">!</div>
 
-    <span class="cq-eyebrow">ОПЕРАЦИЯ НЕ ВЫПОЛНЕНА</span>
+                    <span class="badge cq-badge-danger mb-3">ОПЕРАЦИЯ НЕ ВЫПОЛНЕНА</span>
 
-    <h1>Не удалось выполнить действие</h1>
+                    <h1 class="h2 mb-3">Не удалось выполнить действие</h1>
 
-    <p>{{ message }}</p>
+                    <p class="text-secondary">{{ message }}</p>
 
-    <div class="cq-error-actions">
-        <a href="{% url 'test' %}" class="cq-button">
-            Вернуться к тестированию →
-        </a>
+                    <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
+                        <a href="{% url 'test' %}" class="btn btn-primary">
+                            Вернуться к тестированию →
+                        </a>
+                        <a href="{% url 'course' %}" class="btn btn-outline-light">
+                            Вернуться к курсу
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-        <a href="{% url 'course' %}" class="cq-text-link">
-            Вернуться к курсу
-        </a>
+            <p class="text-center text-secondary small mt-4">
+                Ошибочный сценарий сохраняется с версии 0.0.2.
+            </p>
+        </div>
     </div>
-</section>
+</div>
 
 {% endblock %}
