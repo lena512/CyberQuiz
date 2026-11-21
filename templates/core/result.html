@@ -7,7 +7,7 @@
 <section class="cq-result-card">
     <span class="cq-eyebrow">ИТОГ ОБУЧЕНИЯ</span>
 
-    {% if result.passed %}
+    {% if attempt.passed %}
         <div class="cq-result-icon cq-result-success">✓</div>
         <h1>Тестирование завершено!</h1>
         <p>Поздравляем! Ты успешно прошёл итоговую проверку знаний.</p>
@@ -21,36 +21,56 @@
     {% endif %}
 
     <div class="cq-score">
-        <strong>{{ result.percentage }}%</strong>
+        <strong>{{ attempt.percent }}%</strong>
         <span>Результат тестирования</span>
     </div>
 
     <div class="cq-result-details">
         <div>
             <span>Правильные ответы</span>
-            <strong>
-                {{ result.correct_count }} из {{ result.total_questions }}
-            </strong>
+            <strong>{{ attempt.score }} из {{ attempt.max_score }}</strong>
         </div>
 
         <div>
             <span>Итоговая оценка</span>
-            <strong>{{ result.grade }}</strong>
+            <strong>{{ attempt.grade }}</strong>
         </div>
 
         <div>
             <span>Статус курса</span>
-            {% if result.passed %}
+            {% if attempt.passed %}
                 <strong class="cq-status-success">Пройден</strong>
             {% else %}
                 <strong class="cq-status-fail">Не пройден</strong>
             {% endif %}
         </div>
+
+        <div>
+            <span>Дата прохождения</span>
+            <strong>{{ attempt.completed_at|date:"d.m.Y H:i" }}</strong>
+        </div>
+    </div>
+
+    <div class="cq-answer-review">
+        <h2>Разбор ответов</h2>
+
+        <ul>
+            {% for answer in answers %}
+                <li>
+                    <span class="cq-answer-mark{% if not answer.is_correct %} cq-answer-mark-wrong{% endif %}">
+                        {% if answer.is_correct %}✓{% else %}✗{% endif %}
+                    </span>
+                    <span>
+                        Вопрос {{ answer.number }}. {{ answer.text }}
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 
     <div class="cq-result-actions">
-        <a href="{% url 'course' %}" class="cq-button cq-button-secondary">
-            Вернуться к материалам
+        <a href="{% url 'results' %}" class="cq-button cq-button-secondary">
+            Все результаты
         </a>
 
         <a href="{% url 'test' %}" class="cq-button">

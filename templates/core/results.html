@@ -1,0 +1,70 @@
+{% extends "core/base.html" %}
+
+{% block title %}Результаты | CyberQuiz{% endblock %}
+
+{% block content %}
+
+<section class="cq-page-heading">
+    <span class="cq-eyebrow">ЖУРНАЛ ОБУЧЕНИЯ</span>
+    <h1>Результаты тестирования</h1>
+    <p>
+        Все попытки прохождения итогового теста сохраняются в базе данных.
+        Откройте любую запись, чтобы посмотреть карточку результата.
+    </p>
+
+    <div class="cq-test-info">
+        <span>Всего попыток: {{ attempts|length }}</span>
+        <span>Данные из базы</span>
+    </div>
+</section>
+
+{% if attempts %}
+    <div class="cq-results-table-wrap">
+        <table class="cq-results-table">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Дата и время</th>
+                    <th>Правильные ответы</th>
+                    <th>Процент</th>
+                    <th>Оценка</th>
+                    <th>Статус</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for attempt in attempts %}
+                    <tr>
+                        <td>{{ attempt.id }}</td>
+                        <td>{{ attempt.completed_at|date:"d.m.Y H:i" }}</td>
+                        <td>{{ attempt.score }} из {{ attempt.max_score }}</td>
+                        <td>{{ attempt.percent }}%</td>
+                        <td>{{ attempt.grade }}</td>
+                        <td>
+                            {% if attempt.passed %}
+                                <span class="cq-status-success">Пройден</span>
+                            {% else %}
+                                <span class="cq-status-fail">Не пройден</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'result' attempt.id %}">Открыть →</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="cq-empty-state">
+        <div class="cq-empty-icon">0</div>
+        <h2>Список пуст</h2>
+        <p>
+            В базе данных пока нет ни одной попытки тестирования.
+            Пройдите тест, и запись появится в этом списке.
+        </p>
+        <a href="{% url 'test' %}" class="cq-button">Начать тестирование →</a>
+    </div>
+{% endif %}
+
+{% endblock %}
