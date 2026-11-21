@@ -3,6 +3,10 @@ FROM python:3.13-slim
 
 WORKDIR /app
 
+# Вывод логов без буферизации
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
 # Установка зависимостей
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt

@@ -1,42 +1,83 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}CyberQuiz{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body class="cq-body">
+<body class="cq-body d-flex flex-column min-vh-100">
 
-<header class="cq-header">
-    <div class="cq-container cq-header-inner">
-        <a href="{% url 'index' %}" class="cq-brand">
-            <span class="cq-brand-icon">CQ</span>
+<nav class="navbar navbar-expand-lg cq-navbar sticky-top">
+    <div class="container">
+        <a class="navbar-brand cq-brand" href="{% url 'index' %}">
+            <span class="cq-brand-mark">CQ</span>
             <span class="cq-brand-text">
                 <strong>CyberQuiz</strong>
                 <small>Корпоративное обучение</small>
             </span>
+            <span class="badge cq-version-badge">0.0.4</span>
         </a>
 
-        <nav class="cq-nav">
-            <a href="{% url 'index' %}">Главная</a>
-            <a href="{% url 'course' %}">Курс</a>
-            <a href="{% url 'test' %}">Тестирование</a>
-        </nav>
-    </div>
-</header>
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#cqNavbar"
+                aria-controls="cqNavbar" aria-expanded="false"
+                aria-label="Открыть меню">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<main class="cq-container cq-main">
+        <div class="collapse navbar-collapse" id="cqNavbar">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+                {% with current=request.resolver_match.url_name %}
+                <li class="nav-item">
+                    <a class="nav-link {% if current == 'index' %}active{% endif %}"
+                       href="{% url 'index' %}">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if current == 'course' %}active{% endif %}"
+                       href="{% url 'course' %}">Курс</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if current == 'test' %}active{% endif %}"
+                       href="{% url 'test' %}">Тестирование</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if current == 'results' or current == 'result' or current == 'result_legacy' %}active{% endif %}"
+                       href="{% url 'results' %}">Результаты</a>
+                </li>
+                {% endwith %}
+            </ul>
+
+            <a href="{% url 'test' %}" class="btn btn-primary btn-sm ms-lg-3">
+                Пройти тест
+            </a>
+        </div>
+    </div>
+</nav>
+
+<main class="cq-main flex-grow-1">
     {% block content %}{% endblock %}
 </main>
 
 <footer class="cq-footer">
-    <div class="cq-container">
-        <p>CyberQuiz — платформа корпоративного обучения</p>
-        <span>Основы информационной безопасности</span>
+    <div class="container">
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
+            <div class="cq-footer-brand">
+                <span class="cq-brand-mark cq-brand-mark-sm">CQ</span>
+                <span>
+                    <strong>CyberQuiz</strong> — платформа корпоративного обучения
+                </span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <span class="cq-footer-note">Основы информационной безопасности</span>
+                <span class="badge cq-version-badge">Версия 0.0.4</span>
+            </div>
+        </div>
     </div>
 </footer>
 
+<script src="{% static 'vendor/bootstrap/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
