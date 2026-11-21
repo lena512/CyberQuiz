@@ -8,7 +8,7 @@ from .data import (
     calculate_result,
     get_public_questions,
 )
-from .models import TestResult, UserAnswer
+from .models import Event, TestResult, UserAnswer
 
 
 def index(request):
@@ -95,6 +95,15 @@ def test_view(request):
                     for question in QUESTIONS
                 ])
 
+                Event.objects.create(
+                    test_result=attempt,
+                    message=(
+                        f"Попытка №{attempt.pk} завершена: "
+                        f"{attempt.score} из {attempt.max_score}, "
+                        f"оценка «{attempt.grade}»"
+                    ),
+                )
+
         except DatabaseError:
             return render(
                 request,
@@ -123,6 +132,18 @@ def results(request):
     }
 
     return render(request, "core/results.html", context)
+
+
+def events(request):
+    """Экран уведомлений о событиях системы."""
+    event_list = Event.objects.select_related("test_result").all()
+
+    context = {
+        "course": COURSE,
+        "events": event_list,
+    }
+
+    return render(request, "core/events.html", context)
 
 
 def result(request, pk):

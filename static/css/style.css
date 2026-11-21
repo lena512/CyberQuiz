@@ -885,3 +885,53 @@ fieldset.cq-question-card {
         padding: 0.75rem;
     }
 }
+
+/* ---------- Уведомления и события (0.0.5) ---------- */
+
+.cq-count-badge {
+    display: inline-grid;
+    place-items: center;
+    min-width: 18px;
+    height: 18px;
+    margin-left: 0.25rem;
+    padding: 0 0.35rem;
+    border-radius: 999px;
+    background: var(--cq-accent);
+    color: #04101f;
+    font-size: 0.66rem;
+    font-weight: 800;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.cq-event-card {
+    border-color: var(--cq-border);
+    transition: border-color 0.18s ease, transform 0.18s ease;
+}
+
+.cq-event-card:hover {
+    border-color: rgba(102, 200, 255, 0.45);
+    transform: translateY(-2px);
+}
+
+.cq-event-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: rgba(61, 220, 151, 0.14);
+    border: 1px solid rgba(61, 220, 151, 0.4);
+    color: var(--cq-success);
+    font-size: 1.1rem;
+    font-weight: 800;
+}
+
+.cq-alert-success {
+    border: 1px solid rgba(61, 220, 151, 0.35);
+    border-radius: 14px;
+    background: rgba(61, 220, 151, 0.08);
+    color: #d8f5e8;
+    font-size: 0.9rem;
+}

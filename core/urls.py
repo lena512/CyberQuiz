@@ -15,5 +15,7 @@ urlpatterns = [
 
     path("results/", views.results, name="results"),
 
+    path("events/", views.events, name="events"),
+
     path("access-denied/", views.access_denied, name="access_denied"),
 ]

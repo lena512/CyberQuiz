@@ -18,7 +18,7 @@
                 <strong>CyberQuiz</strong>
                 <small>Корпоративное обучение</small>
             </span>
-            <span class="badge cq-version-badge">0.0.4</span>
+            <span class="badge cq-version-badge">0.0.5</span>
         </a>
 
         <button class="navbar-toggler" type="button"
@@ -47,6 +47,15 @@
                     <a class="nav-link {% if current == 'results' or current == 'result' or current == 'result_legacy' %}active{% endif %}"
                        href="{% url 'results' %}">Результаты</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if current == 'events' %}active{% endif %}"
+                       href="{% url 'events' %}">
+                        События
+                        {% if unread_events %}
+                            <span class="badge cq-count-badge">{{ unread_events }}</span>
+                        {% endif %}
+                    </a>
+                </li>
                 {% endwith %}
             </ul>
 
@@ -72,7 +81,7 @@
             </div>
             <div class="d-flex align-items-center gap-3">
                 <span class="cq-footer-note">Основы информационной безопасности</span>
-                <span class="badge cq-version-badge">Версия 0.0.4</span>
+                <span class="badge cq-version-badge">Версия 0.0.5</span>
             </div>
         </div>
     </div>

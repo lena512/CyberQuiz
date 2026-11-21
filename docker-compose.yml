@@ -2,7 +2,7 @@ name: mispisit-minibaeva
 
 services:
   app:
-    image: lena512/mispisit-lab1:0.0.4
+    image: lena512/mispisit-lab1:0.0.5
     ports:
       - "8080:8080"
     environment:

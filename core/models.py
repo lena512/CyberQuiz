@@ -80,3 +80,52 @@ class UserAnswer(models.Model):
             f"Вопрос №{self.question_id}, "
             f"результат №{self.test_result_id}"
         )
+
+
+class Event(models.Model):
+    """Уведомление о событии, произошедшем в системе."""
+
+    STATUS_NEW = "new"
+    STATUS_READ = "read"
+    STATUS_CHOICES = [
+        (STATUS_NEW, "Новое"),
+        (STATUS_READ, "Прочитано"),
+    ]
+
+    created_at = models.DateTimeField(
+        default=timezone.now,
+        verbose_name="Дата и время события"
+    )
+
+    event_type = models.CharField(
+        max_length=50,
+        default="attempt_completed",
+        verbose_name="Тип события"
+    )
+
+    message = models.CharField(
+        max_length=255,
+        verbose_name="Сообщение"
+    )
+
+    test_result = models.ForeignKey(
+        TestResult,
+        on_delete=models.CASCADE,
+        related_name="events",
+        verbose_name="Запись, вызвавшая событие"
+    )
+
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default=STATUS_NEW,
+        verbose_name="Статус уведомления"
+    )
+
+    class Meta:
+        verbose_name = "Событие"
+        verbose_name_plural = "События"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"Событие №{self.id}: {self.message}"

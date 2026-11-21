@@ -4,9 +4,9 @@
 
 ## Текущая версия
 
-**Версия:** 0.0.4
+**Версия:** 0.0.5
 
-Интерфейс платформы собран на Bootstrap 5.3.3 с единой навигацией. Данные тестирования сохраняются в PostgreSQL.
+Интерфейс собран на Bootstrap 5.3.3. Завершение тестирования создаёт уведомление в журнале событий. Данные хранятся в PostgreSQL.
 
 ## Технологии
 
@@ -19,13 +19,13 @@
 ## Запуск
 
 Репозиторий: https://github.com/lena512/CyberQuiz
-Ветка: lab4
-Pull Request: https://github.com/lena512/CyberQuiz/pull/4
-Образ: lena512/mispisit-lab1:0.0.4
+Ветка: lab5
+Pull Request: https://github.com/lena512/CyberQuiz/pull/5
+Образ: lena512/mispisit-lab1:0.0.5
 Страница образа: https://hub.docker.com/r/lena512/mispisit-lab1
 
 ```bash
-git clone -b lab4 https://github.com/lena512/CyberQuiz
+git clone -b lab5 https://github.com/lena512/CyberQuiz
 cd CyberQuiz
 docker compose up -d
 ```
@@ -36,7 +36,7 @@ docker compose up -d
 http://localhost:8080
 ```
 
-Список результатов сначала пустой. Новая попытка, созданная на странице тестирования, сохраняется в базе и остаётся после перезапуска:
+Событий сначала нет. После завершения тестирования сообщение появится в разделе «События» и останется после перезапуска:
 
 ```bash
 docker compose down
@@ -48,8 +48,8 @@ docker compose up -d
 Для самостоятельной сборки образа из исходного кода выполните команды в корневой папке проекта:
 
 ```bash
-docker build -t lena512/mispisit-lab1:0.0.4 .
-docker run --rm -p 8080:8080 lena512/mispisit-lab1:0.0.4
+docker build -t lena512/mispisit-lab1:0.0.5 .
+docker run --rm -p 8080:8080 lena512/mispisit-lab1:0.0.5
 ```
 
 
