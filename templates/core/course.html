@@ -1,59 +1,86 @@
 {% extends "core/base.html" %}
 
-{% block title %}Теория | CyberQuiz{% endblock %}
+{% block title %}Курс | CyberQuiz{% endblock %}
 
 {% block content %}
 
-<section class="cq-page-heading">
-    <span class="cq-eyebrow">ОБУЧАЮЩИЙ МАТЕРИАЛ</span>
-    <h1>{{ course.title }}</h1>
-    <p>{{ course.description }}</p>
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb cq-breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Курс</li>
+        </ol>
+    </nav>
 
-    <div class="cq-progress-info">
-        <span>Учебная программа</span>
-        <strong>{{ topics|length }} тем</strong>
-    </div>
-
-    <div class="cq-progress-track">
-        <div class="cq-progress-fill"></div>
-    </div>
-</section>
-
-<section class="cq-topics">
-    {% for topic in topics %}
-        <article class="cq-topic-card">
-            <div class="cq-topic-header">
-                <span class="cq-topic-number">ТЕМА {{ topic.id }}</span>
+    <header class="cq-page-header">
+        <div class="row align-items-end g-4">
+            <div class="col-lg-8">
+                <span class="cq-eyebrow">УЧЕБНАЯ ПРОГРАММА</span>
+                <h1>{{ course.title }}</h1>
+                <p class="cq-page-lead">{{ course.description }}</p>
             </div>
-
-            <h2>{{ topic.title }}</h2>
-            <p class="cq-topic-intro">{{ topic.intro }}</p>
-
-            <h3>Основные положения</h3>
-
-            <ul class="cq-topic-list">
-                {% for point in topic.points %}
-                    <li>{{ point }}</li>
-                {% endfor %}
-            </ul>
-
-            <div class="cq-example">
-                <strong>Пример из практики</strong>
-                <p>{{ topic.example }}</p>
+            <div class="col-lg-4 text-lg-end">
+                <span class="badge cq-badge-soft">{{ topics|length }} тем · 5 вопросов</span>
             </div>
-        </article>
-    {% endfor %}
-</section>
+        </div>
+    </header>
 
-<section class="cq-bottom-panel">
-    <div>
-        <h2>Готов проверить свои знания?</h2>
-        <p>Пройди итоговое тестирование по изученному материалу.</p>
+    <div class="accordion cq-accordion" id="courseAccordion">
+        {% for topic in topics %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading{{ topic.id }}">
+                    <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}"
+                            type="button" data-bs-toggle="collapse"
+                            data-bs-target="#topic{{ topic.id }}"
+                            aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                            aria-controls="topic{{ topic.id }}">
+                        <span class="cq-topic-number">ТЕМА {{ topic.id }}</span>
+                        <span class="cq-topic-title">{{ topic.title }}</span>
+                    </button>
+                </h2>
+
+                <div id="topic{{ topic.id }}"
+                     class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
+                     aria-labelledby="heading{{ topic.id }}"
+                     data-bs-parent="#courseAccordion">
+                    <div class="accordion-body">
+                        <p class="cq-topic-intro">{{ topic.intro }}</p>
+
+                        <h3 class="h6 cq-subheading">Основные положения</h3>
+                        <ul class="cq-topic-list">
+                            {% for point in topic.points %}
+                                <li>{{ point }}</li>
+                            {% endfor %}
+                        </ul>
+
+                        <div class="alert cq-example mb-0" role="alert">
+                            <strong>Пример из практики</strong>
+                            <p class="mb-0">{{ topic.example }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 
-    <a href="{% url 'test' %}" class="cq-button">
-        Перейти к тесту →
-    </a>
-</section>
+    <div class="card cq-cta-panel mt-4">
+        <div class="card-body p-4 p-lg-5">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-8">
+                    <span class="cq-eyebrow">МАТЕРИАЛ ИЗУЧЕН</span>
+                    <h2 class="h3 mb-2">Проверьте свои знания</h2>
+                    <p class="text-secondary mb-0">
+                        Пять вопросов по всем темам курса. Результат попадёт в журнал.
+                    </p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a href="{% url 'test' %}" class="btn btn-primary btn-lg px-4">
+                        Перейти к тесту →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

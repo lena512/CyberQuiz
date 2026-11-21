@@ -4,67 +4,112 @@
 
 {% block content %}
 
-<section class="cq-page-heading">
-    <span class="cq-eyebrow">ЖУРНАЛ ОБУЧЕНИЯ</span>
-    <h1>Результаты тестирования</h1>
-    <p>
-        Все попытки прохождения итогового теста сохраняются в базе данных.
-        Откройте любую запись, чтобы посмотреть карточку результата.
-    </p>
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb cq-breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Результаты</li>
+        </ol>
+    </nav>
 
-    <div class="cq-test-info">
-        <span>Всего попыток: {{ attempts|length }}</span>
-        <span>Данные из базы</span>
-    </div>
-</section>
+    <header class="cq-page-header">
+        <div class="row align-items-end g-4">
+            <div class="col-lg-8">
+                <span class="cq-eyebrow">ЖУРНАЛ ОБУЧЕНИЯ</span>
+                <h1>Результаты тестирования</h1>
+                <p class="cq-page-lead">
+                    Все попытки прохождения итогового теста сохраняются в базе данных.
+                    Откройте любую запись, чтобы посмотреть карточку результата.
+                </p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <span class="badge cq-badge-soft">Всего попыток: {{ attempts|length }}</span>
+            </div>
+        </div>
+    </header>
 
-{% if attempts %}
-    <div class="cq-results-table-wrap">
-        <table class="cq-results-table">
-            <thead>
-                <tr>
-                    <th>№</th>
-                    <th>Дата и время</th>
-                    <th>Правильные ответы</th>
-                    <th>Процент</th>
-                    <th>Оценка</th>
-                    <th>Статус</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for attempt in attempts %}
-                    <tr>
-                        <td>{{ attempt.id }}</td>
-                        <td>{{ attempt.completed_at|date:"d.m.Y H:i" }}</td>
-                        <td>{{ attempt.score }} из {{ attempt.max_score }}</td>
-                        <td>{{ attempt.percent }}%</td>
-                        <td>{{ attempt.grade }}</td>
-                        <td>
-                            {% if attempt.passed %}
-                                <span class="cq-status-success">Пройден</span>
-                            {% else %}
-                                <span class="cq-status-fail">Не пройден</span>
-                            {% endif %}
-                        </td>
-                        <td>
-                            <a href="{% url 'result' attempt.id %}">Открыть →</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-{% else %}
-    <div class="cq-empty-state">
-        <div class="cq-empty-icon">0</div>
-        <h2>Список пуст</h2>
-        <p>
-            В базе данных пока нет ни одной попытки тестирования.
-            Пройдите тест, и запись появится в этом списке.
-        </p>
-        <a href="{% url 'test' %}" class="cq-button">Начать тестирование →</a>
-    </div>
-{% endif %}
+    {% if attempts %}
+        <div class="card cq-table-card">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle cq-table mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">№</th>
+                            <th scope="col">Дата и время</th>
+                            <th scope="col">Правильные ответы</th>
+                            <th scope="col">Процент</th>
+                            <th scope="col">Оценка</th>
+                            <th scope="col">Статус</th>
+                            <th scope="col" class="text-end">Действие</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for attempt in attempts %}
+                            <tr>
+                                <td class="text-secondary">{{ attempt.id }}</td>
+                                <td>{{ attempt.completed_at|date:"d.m.Y H:i" }}</td>
+                                <td><strong>{{ attempt.score }}</strong> из {{ attempt.max_score }}</td>
+                                <td><strong>{{ attempt.percent }}%</strong></td>
+                                <td>{{ attempt.grade }}</td>
+                                <td>
+                                    {% if attempt.passed %}
+                                        <span class="badge cq-badge-success">Пройден</span>
+                                    {% else %}
+                                        <span class="badge cq-badge-danger">Не пройден</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-end">
+                                    <a href="{% url 'result' attempt.id %}"
+                                       class="btn btn-outline-light btn-sm">
+                                        Открыть →
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mt-4">
+            <span class="text-secondary small">
+                Данные читаются из PostgreSQL и сохраняются после перезапуска.
+            </span>
+            <a href="{% url 'test' %}" class="btn btn-primary">
+                Пройти тест ещё раз →
+            </a>
+        </div>
+    {% else %}
+        <div class="card cq-empty-card">
+            <div class="card-body p-4 p-lg-5">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-7">
+                        <div class="cq-empty-icon">0</div>
+                        <h2 class="h3">Журнал пока пуст</h2>
+                        <p class="text-secondary mb-4">
+                            В базе данных ещё нет ни одной попытки тестирования.
+                            Пройдите тест, и запись появится в этом списке.
+                        </p>
+                        <a href="{% url 'test' %}" class="btn btn-primary btn-lg px-4">
+                            Начать тестирование →
+                        </a>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="cq-empty-hint">
+                            <div class="cq-eyebrow">ЧТО ПОЯВИТСЯ ЗДЕСЬ</div>
+                            <ul class="cq-check-list mb-0">
+                                <li>Дата и время прохождения</li>
+                                <li>Количество правильных ответов</li>
+                                <li>Процент выполнения и оценка</li>
+                                <li>Статус прохождения курса</li>
+                                <li>Разбор ответов по вопросам</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
 
 {% endblock %}

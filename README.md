@@ -4,27 +4,28 @@
 
 ## Текущая версия
 
-**Версия:** 0.0.3
+**Версия:** 0.0.4
 
-Данные тестирования сохраняются в PostgreSQL. Разработка продолжается.
+Интерфейс платформы собран на Bootstrap 5.3.3 с единой навигацией. Данные тестирования сохраняются в PostgreSQL.
 
 ## Технологии
 
 - **Python 3.13** — язык программирования.
 - **Django 6.1.3** — веб-фреймворк.
+- **Bootstrap 5.3.3** — библиотека оформления страниц.
 - **PostgreSQL 16** — база данных.
 - **Docker** — средство контейнеризации приложения.
 
 ## Запуск
 
 Репозиторий: https://github.com/lena512/CyberQuiz
-Ветка: lab3
-Pull Request: https://github.com/lena512/CyberQuiz/pull/3
-Образ: lena512/mispisit-lab1:0.0.3
+Ветка: lab4
+Pull Request: https://github.com/lena512/CyberQuiz/pull/4
+Образ: lena512/mispisit-lab1:0.0.4
 Страница образа: https://hub.docker.com/r/lena512/mispisit-lab1
 
 ```bash
-git clone -b lab3 https://github.com/lena512/CyberQuiz
+git clone -b lab4 https://github.com/lena512/CyberQuiz
 cd CyberQuiz
 docker compose up -d
 ```
@@ -47,8 +48,8 @@ docker compose up -d
 Для самостоятельной сборки образа из исходного кода выполните команды в корневой папке проекта:
 
 ```bash
-docker build -t lena512/mispisit-lab1:0.0.3 .
-docker run --rm -p 8080:8080 lena512/mispisit-lab1:0.0.3
+docker build -t lena512/mispisit-lab1:0.0.4 .
+docker run --rm -p 8080:8080 lena512/mispisit-lab1:0.0.4
 ```
 
 
