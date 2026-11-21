@@ -1185,3 +1185,216 @@ body.cq-body {
         width: 100%;
     }
 }
+
+/* ==========================================
+   Версия приложения на главной странице
+   ========================================== */
+
+.cq-version {
+    display: inline-block;
+
+    margin: 0 0 22px;
+    padding: 5px 14px;
+
+    border: 1px solid rgba(101, 184, 255, 0.45);
+    border-radius: 999px;
+
+    background: rgba(49, 133, 237, 0.16);
+    color: var(--accent);
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/* ==========================================
+   Журнал результатов: таблица
+   ========================================== */
+
+.cq-results-table-wrap {
+    width: 100%;
+    margin: 10px 0 30px;
+
+    overflow-x: auto;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
+}
+
+.cq-results-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    font-size: 14px;
+    text-align: left;
+}
+
+.cq-results-table th {
+    padding: 14px 18px;
+
+    border-bottom: 1px solid var(--border);
+
+    background: var(--surface-soft);
+    color: var(--text-muted);
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.cq-results-table td {
+    padding: 15px 18px;
+
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+
+    white-space: nowrap;
+}
+
+.cq-results-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.cq-results-table tbody tr:hover td {
+    background: var(--surface-hover);
+}
+
+.cq-results-table td:first-child {
+    color: var(--text-muted);
+    font-weight: 700;
+}
+
+.cq-results-table td:nth-child(3),
+.cq-results-table td:nth-child(4) {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.cq-results-table a {
+    color: var(--accent);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.cq-results-table a:hover {
+    color: var(--primary-hover);
+}
+
+/* ==========================================
+   Журнал результатов: пустое состояние
+   ========================================== */
+
+.cq-empty-state {
+    display: block;
+
+    width: 100%;
+    max-width: 760px;
+
+    margin: 15px auto 40px;
+    padding: 46px 40px;
+
+    border: 1px dashed var(--border);
+    border-radius: 18px;
+
+    background: var(--surface);
+
+    text-align: center;
+}
+
+.cq-empty-icon {
+    display: grid;
+    place-items: center;
+
+    width: 68px;
+    height: 68px;
+
+    margin: 0 auto 18px;
+
+    border-radius: 50%;
+
+    background: rgba(49, 133, 237, 0.16);
+    color: var(--accent);
+
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.cq-empty-state h2 {
+    margin: 0 0 10px;
+
+    color: #ffffff;
+    font-size: 25px;
+}
+
+.cq-empty-state p {
+    max-width: 520px;
+    margin: 0 auto 24px;
+
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* ==========================================
+   Карточка результата: разбор ответов
+   ========================================== */
+
+.cq-answer-review {
+    margin: 25px 0;
+    padding: 22px 24px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    background: #192d49;
+
+    text-align: left;
+}
+
+.cq-answer-review h2 {
+    margin: 0 0 14px;
+
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.cq-answer-review ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.cq-answer-review li {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 10px;
+
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.cq-answer-mark {
+    flex: 0 0 auto;
+
+    color: var(--success);
+    font-weight: 800;
+}
+
+.cq-answer-review li:nth-child(n) .cq-answer-mark {
+    color: var(--success);
+}
+
+.cq-answer-mark-wrong {
+    color: var(--danger) !important;
+}
